@@ -238,6 +238,22 @@ switch() {
 
     rm -f "$STATE_DIR/user/color.txt"
     matugen "${matugen_args[@]}"
+
+    # Generate a separate, dark-only theme for Kitty in a writable location
+    kitty_matugen_args=("${matugen_args[@]}")
+    dark_mode_set=false
+    for i in "${!kitty_matugen_args[@]}"; do
+      if [[ "${kitty_matugen_args[$i]}" == "--mode" ]]; then
+        kitty_matugen_args[$i+1]="dark"
+        dark_mode_set=true
+        break
+      fi
+    done
+    if ! $dark_mode_set; then
+        kitty_matugen_args+=(--mode dark)
+    fi
+    matugen "${kitty_matugen_args[@]}" -t kitty -o /tmp/kitty_theme.conf
+
     python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
         > "$STATE_DIR"/user/generated/material_colors.scss
     "$SCRIPT_DIR"/applycolor.sh
