@@ -236,6 +236,7 @@ switch() {
 
     pre_process "$mode_flag"
 
+    rm -f "$STATE_DIR/user/color.txt"
     matugen "${matugen_args[@]}"
     python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
         > "$STATE_DIR"/user/generated/material_colors.scss
