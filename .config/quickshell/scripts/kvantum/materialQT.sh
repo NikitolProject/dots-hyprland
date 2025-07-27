@@ -26,7 +26,7 @@ apply_qt() {
 		exit 1 # Exit the function if the folder does not exist
 	fi
 
-	lightdark=$(get_light_dark)
+	lightdark="dark"
 	if [ "$lightdark" = "light" ]; then
 		# apply ligght colors
 		cp "$XDG_CONFIG_HOME/Kvantum/Colloid/Colloid.kvconfig" "$XDG_CONFIG_HOME/Kvantum/MaterialAdw/MaterialAdw.kvconfig"
